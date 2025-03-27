@@ -347,63 +347,6 @@ img.zoom-in {
   transform: scale(1);
 }
 
-/* - Preloader
-------------------------------------------------------------- */
-#preloader {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background-color: #f7f7f7eb;
-  display: flex;
-  align-items: center;
-  z-index: 99999999;
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-#preloader.hide-preloader {
-  opacity: 0;
-  visibility: hidden;
-}
-#loader {
-  width: 180px;
-  height: 9px;
-  margin: auto;
-  position: relative;
-  overflow: hidden;
-  background-color: var(--white-color);
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  border-radius: 20px;
-}
-#loader:before {
-  content: "";
-  position: absolute;
-  left: -50%;
-  height: 9px;
-  width: 30%;
-  background-color: #b7b4ab;
-  -webkit-animation: lineAnim 1.6s linear infinite;
-  -moz-animation: lineAnim 1.6s linear infinite;
-  animation: lineAnim 1.6s linear infinite;
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  border-radius: 20px;
-}
-@keyframes lineAnim {
-  0% {
-      left: -40%;
-  }
-  50% {
-      left: 20%;
-      width: 80%;
-  }
-  100% {
-      left: 100%;
-      width: 100%;
-  }
-}
-
 /* - Swiper arrows
 ------------------------------------------------------------- */
 .swiper-buttons .swiper-prev,
@@ -718,6 +661,69 @@ img.zoom-in {
   .banner-content-3 { grid-area: 3 / 1 / 4 / 2; }
 }
 
+/* Optimización de imágenes */
+.banner-content-1,
+.banner-content-2,
+.banner-content-3 {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: transform 0.3s ease;
+    min-height: 300px;
+    position: relative;
+    overflow: hidden;
+}
+
+.banner-content-1:hover,
+.banner-content-2:hover,
+.banner-content-3:hover {
+    transform: scale(1.02);
+}
+
+/* Mejoras en la carga de imágenes */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+.project-image {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: transform 0.3s ease;
+    min-height: 300px;
+    position: relative;
+    overflow: hidden;
+}
+
+.project-image:hover {
+    transform: scale(1.05);
+}
+
+/* Optimización de rendimiento */
+.banner-content-text {
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    z-index: 1;
+}
+
+/* Asegurar que las imágenes de fondo se muestren correctamente */
+.banner-content-1::before,
+.banner-content-2::before,
+.banner-content-3::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
 /* 3.7 Footer
 /*----------------------------------------------*/
 /*------------ Social Icon -----------*/
@@ -947,4 +953,117 @@ h5.widget-title {
 .post-navigation:hover svg,
 .post-navigation:focus svg {
   fill: var(--primary-color);
+}
+
+/* Estilos para la sección de proyectos */
+.project-card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+}
+
+.project-image {
+    height: 300px;
+    position: relative;
+}
+
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.project-card:hover .project-overlay {
+    opacity: 1;
+}
+
+.project-overlay h3 {
+    color: white;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+/* Estilos para la sección de habilidades */
+.skill-category {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.skill-item {
+    margin-bottom: 1.5rem;
+}
+
+.skill-item span {
+    font-weight: 500;
+    color: #333;
+}
+
+.progress {
+    height: 8px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background-color: #007bff;
+    transition: width 1s ease-in-out;
+}
+
+/* Botón "Volver arriba" */
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #007bff;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+}
+
+.back-to-top:hover {
+    background: #0056b3;
+}
+
+/* Mejoras responsive */
+@media (max-width: 768px) {
+    .project-image,
+    .banner-content-1,
+    .banner-content-2,
+    .banner-content-3 {
+        min-height: 250px;
+    }
+    
+    .skill-category {
+        margin-bottom: 1rem;
+    }
 }
